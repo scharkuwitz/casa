@@ -14,6 +14,14 @@ export const STATUS_TONE: Record<TodoStatusValue, string> = {
   CANCELLED: "bg-status-cancelled/12 text-status-cancelled",
 };
 
+/** Gantt bar progress per status. */
+export const STATUS_PROGRESS: Record<TodoStatusValue, number> = {
+  TODO: 0,
+  IN_PROGRESS: 50,
+  DONE: 100,
+  CANCELLED: 0,
+};
+
 /** Date -> "YYYY-MM-DD" (UTC), for <input type="date"> values. */
 export const toDateInput = (d: Date) => d.toISOString().slice(0, 10);
 

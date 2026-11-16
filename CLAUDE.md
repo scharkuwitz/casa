@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Status
 
-M1 (scaffold), M2 (Prisma + Better Auth foundation), M3 (auth gating), M4 (todo/category CRUD) and M5 (list/Gantt views, attachments) are done as of 2026-11-16; later milestones are still **planned design**, not existing files. Verify against the actual tree before relying on any path, and update this file as milestones land.
+M1 (scaffold), M2 (Prisma + Better Auth foundation), M3 (auth gating), M4 (todo/category CRUD) and M5 (list/Gantt views, attachments) and M6 (tests, `/api/health`) are done as of 2026-11-16; later milestones are still **planned design**, not existing files. Verify against the actual tree before relying on any path, and update this file as milestones land.
 
 **Progress tracking is mandatory.** The live milestone checklist and full design doc are in project memory (`~/.claude/projects/-home-dispel-Projects-case/memory/`): `todo-app-milestones.md` (current milestone, next step, deviations, session log) and `todo-app-design.md`. Read the checklist first in every session or after context compaction, tick tasks as they are verified, and log deviations from the design there.
 
@@ -23,7 +23,8 @@ Next.js App Router (`output: "standalone"`) + React 19 + TypeScript strict · Ta
 - `npm run dev` / `build` / `start` — Next dev server, production build, serve build
 - `npm run lint` — eslint · `npm run typecheck` — `next typegen && tsc --noEmit` · `npm run format` — prettier
 - `npm run db:migrate` (prisma migrate dev) / `db:deploy` / `db:studio`; `postinstall` runs `prisma generate` (client is generated into gitignored `src/generated/prisma`). Prisma 7: URL lives in `prisma.config.ts`, driver adapter in `src/lib/db.ts`
-- Not yet added: `test` (Vitest), `test:e2e` (Playwright), docker commands (M6, M7)
+- `npm test` — Vitest unit tests in `tests/unit` (own migrated temp SQLite under `node_modules/.cache`, `server-only` aliased to a stub) · `npm run test:e2e` — Playwright smoke in `tests/e2e`; builds the app and serves it on :3100 with a throwaway DB/upload dir (needs `npx playwright install chromium` once)
+- Not yet added: docker commands (M7)
 
 ## Architecture (auth, CRUD, views and attachments implemented; tests/Docker/CI planned)
 
