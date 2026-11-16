@@ -7,11 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-heading: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-heading: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
   --color-rule: var(--rule);
-  --shadow-card: var(--shadow-card);
   --color-link: var(--link);
   --color-infobox: var(--infobox);
   --color-row-alt: var(--row-alt);
@@ -48,104 +47,102 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Square, rugged look: every radius step collapses to a hairline. */
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+  --radius-3xl: 2px;
+  --radius-4xl: 2px;
 }
 
-/* Design system: Wikipedia-only (Vector-style sidebar + article layout, serif
-   headings with a thin rule, blue links, infobox, Wikipedia night mode),
-   modernised with softer radii, subtle depth and Inter UI text. See docs/DESIGN.md. */
+/* Design system: "ink and red stamp". Neutral paper, near-black ink, a single manga/hanko
+   crimson accent, flat surfaces, hairline rules, square corners. See docs/DESIGN.md. */
 :root {
-  --background: #f8f9fa;
-  --foreground: #202122;
-  --card: #ffffff;
-  --card-foreground: #202122;
-  --popover: #ffffff;
-  --popover-foreground: #202122;
-  --primary: #3366cc;
+  --background: #f6f6f5;
+  --foreground: #1e1e1c;
+  --card: #fbfbfa;
+  --card-foreground: #1e1e1c;
+  --popover: #fbfbfa;
+  --popover-foreground: #1e1e1c;
+  --primary: #9c2233;
   --primary-foreground: #ffffff;
-  --secondary: #f1f3f6;
-  --secondary-foreground: #202122;
-  --muted: #eef0f4;
-  --muted-foreground: #5b6168;
-  --accent: #eaf1ff;
-  --accent-foreground: #1d3f8f;
-  --destructive: #d33;
-  --border: #dde1e7;
-  --input: #c8ccd1;
-  --ring: #3366cc;
-  --rule: #c8ccd1;
-  --link: #3366cc;
-  --infobox: #f8f9fa;
-  --row-alt: #f8f9fa;
-  --status-todo: #6b7280;
-  --status-progress: #3366cc;
-  --status-done: #14866d;
-  --status-cancelled: #b32424;
-  --chart-1: #3366cc;
-  --chart-2: #14866d;
-  --chart-3: #b32424;
-  --chart-4: #ac6600;
-  --chart-5: #795cb2;
-  --radius: 0.5rem;
-  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
-  --sidebar: #f8f9fa;
-  --sidebar-foreground: #202122;
-  --sidebar-primary: #3366cc;
+  --secondary: #ecebe9;
+  --secondary-foreground: #1e1e1c;
+  --muted: #ecebe9;
+  --muted-foreground: #5f5e5a;
+  --accent: #ecebe9;
+  --accent-foreground: #1e1e1c;
+  --destructive: #b3261e;
+  --border: #d4d3cf;
+  --input: #b5b3ad;
+  --ring: #9c2233;
+  --rule: #b5b3ad;
+  --link: #8a1c2b;
+  --infobox: transparent;
+  --row-alt: transparent;
+  --status-todo: #66655f;
+  --status-progress: #a55f00;
+  --status-done: #2c7a4b;
+  --status-cancelled: #7b4a82;
+  --chart-1: #9c2233;
+  --chart-2: #2c7a4b;
+  --chart-3: #a55f00;
+  --chart-4: #7b4a82;
+  --chart-5: #66655f;
+  --radius: 2px;
+  --sidebar: transparent;
+  --sidebar-foreground: #1e1e1c;
+  --sidebar-primary: #9c2233;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eaf1ff;
-  --sidebar-accent-foreground: #1d3f8f;
-  --sidebar-border: #dde1e7;
-  --sidebar-ring: #3366cc;
+  --sidebar-accent: #ecebe9;
+  --sidebar-accent-foreground: #1e1e1c;
+  --sidebar-border: #d4d3cf;
+  --sidebar-ring: #9c2233;
 }
 
-/* Wikipedia night mode palette */
 .dark {
-  --background: #101418;
-  --foreground: #eaecf0;
-  --card: #151a20;
-  --card-foreground: #eaecf0;
-  --popover: #151a20;
-  --popover-foreground: #eaecf0;
-  --primary: #6a93e8;
-  --primary-foreground: #0b1220;
-  --secondary: #1d232b;
-  --secondary-foreground: #eaecf0;
-  --muted: #1d232b;
-  --muted-foreground: #a2a9b1;
-  --accent: #1c2a47;
-  --accent-foreground: #c3d3fa;
-  --destructive: #ff6b6b;
-  --border: #2c333c;
-  --input: #3a424d;
-  --ring: #6a93e8;
-  --rule: #3a424d;
-  --link: #88a3e8;
-  --infobox: #1a2027;
-  --row-alt: #131820;
-  --status-todo: #a2a9b1;
-  --status-progress: #88a3e8;
-  --status-done: #4cc9a8;
-  --status-cancelled: #ff7b7b;
-  --chart-1: #88a3e8;
-  --chart-2: #4cc9a8;
-  --chart-3: #ff7b7b;
-  --chart-4: #e0a040;
-  --chart-5: #b49cf0;
-  --shadow-card: none;
-  --sidebar: #101418;
-  --sidebar-foreground: #eaecf0;
-  --sidebar-primary: #6a93e8;
-  --sidebar-primary-foreground: #0b1220;
-  --sidebar-accent: #1c2a47;
-  --sidebar-accent-foreground: #c3d3fa;
-  --sidebar-border: #2c333c;
-  --sidebar-ring: #6a93e8;
+  color-scheme: dark;
+  --background: #161615;
+  --foreground: #e6e4e0;
+  --card: #1c1c1a;
+  --card-foreground: #e6e4e0;
+  --popover: #1c1c1a;
+  --popover-foreground: #e6e4e0;
+  --primary: #d4515f;
+  --primary-foreground: #160b0c;
+  --secondary: #242422;
+  --secondary-foreground: #e6e4e0;
+  --muted: #242422;
+  --muted-foreground: #a3a19b;
+  --accent: #242422;
+  --accent-foreground: #e6e4e0;
+  --destructive: #ef6b62;
+  --border: #33322f;
+  --input: #4a4945;
+  --ring: #d4515f;
+  --rule: #4a4945;
+  --link: #e8808b;
+  --infobox: transparent;
+  --row-alt: transparent;
+  --status-todo: #a3a19b;
+  --status-progress: #e0a040;
+  --status-done: #5fbf86;
+  --status-cancelled: #c58ac9;
+  --chart-1: #d4515f;
+  --chart-2: #5fbf86;
+  --chart-3: #e0a040;
+  --chart-4: #c58ac9;
+  --chart-5: #a3a19b;
+  --sidebar: transparent;
+  --sidebar-foreground: #e6e4e0;
+  --sidebar-primary: #d4515f;
+  --sidebar-primary-foreground: #160b0c;
+  --sidebar-accent: #242422;
+  --sidebar-accent-foreground: #e6e4e0;
+  --sidebar-border: #33322f;
+  --sidebar-ring: #d4515f;
 }
 
 @layer base {
@@ -153,46 +150,56 @@
     @apply border-border outline-ring/50;
   }
   html {
-    font-size: 15px;
+    font-size: 14px;
+  }
+  input,
+  select,
+  textarea {
+    color: inherit;
   }
   body {
     @apply bg-background text-foreground font-sans;
-    line-height: 1.65;
+    line-height: 1.5;
   }
-  /* Wikipedia-style headings: serif, h1/h2 underlined with a thin rule */
+  /* Compact, sans headings: small steps, semibold, rule only under h1/h2 */
   h1,
-  h2 {
-    @apply font-heading border-rule border-b pb-1 font-normal;
-    line-height: 1.25;
-  }
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
+  h2,
   h3,
   h4 {
-    @apply font-sans font-semibold;
+    @apply font-heading font-semibold;
+    line-height: 1.3;
+  }
+  h1,
+  h2 {
+    @apply border-rule border-b pb-1;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.05rem;
   }
   h3 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
   a {
     @apply text-link underline-offset-2 hover:underline;
   }
   table {
-    @apply w-full border-collapse text-sm;
+    @apply w-full border-collapse text-[0.93rem];
   }
   th {
-    @apply bg-muted text-left font-semibold;
+    @apply text-muted-foreground border-rule border-b text-left text-xs font-semibold;
   }
   th,
   td {
-    @apply border-b px-3 py-2;
+    @apply px-2 py-1.5;
   }
-  tbody tr:nth-child(even) {
-    @apply bg-row-alt;
+  td {
+    @apply border-b;
+  }
+  tbody tr:hover {
+    @apply bg-muted/50;
   }
 }
 
@@ -217,20 +224,20 @@ html.dark {
     var(--muted) 60%,
     transparent
   );
-  --g-today-highlight: var(--status-cancelled);
+  --g-today-highlight: var(--primary);
   --g-arrow-color: var(--muted-foreground);
 }
 .gantt .bar-wrapper.gantt-in_progress .bar {
   fill: color-mix(in srgb, var(--status-progress) 22%, var(--card));
 }
 .gantt .bar-wrapper.gantt-in_progress .bar-progress {
-  fill: var(--status-progress);
+  fill: color-mix(in srgb, var(--status-progress) 55%, var(--card));
 }
 .gantt .bar-wrapper.gantt-done .bar {
   fill: color-mix(in srgb, var(--status-done) 22%, var(--card));
 }
 .gantt .bar-wrapper.gantt-done .bar-progress {
-  fill: var(--status-done);
+  fill: color-mix(in srgb, var(--status-done) 55%, var(--card));
 }
 .gantt .bar-wrapper.gantt-cancelled .bar {
   fill: color-mix(in srgb, var(--status-cancelled) 18%, var(--card));
@@ -242,4 +249,35 @@ html.dark {
 .gantt .bar-label,
 .gantt-container {
   font-family: inherit;
+}
+
+/* frappe-gantt ships rounded chrome (its CSS loads after ours, hence the `html` prefix for
+   specificity); flatten it to match the square design. */
+html .gantt-container,
+html .gantt-container .popup-wrapper,
+html .gantt-container .popup-wrapper .action-btn,
+html .gantt-container .side-header *,
+html .gantt-container .date-range-highlight,
+html .gantt-container .current-ball-highlight,
+html .gantt-container .current-date-highlight,
+html .gantt-container .holiday-label,
+html .gantt .bar-wrapper .bar,
+html .gantt .bar-progress {
+  border-radius: 2px;
+}
+html .gantt-container .popup-wrapper {
+  box-shadow: none;
+  border: 1px solid var(--rule);
+}
+html .gantt-container .side-header * {
+  letter-spacing: 0;
+  font-size: 12px;
+  padding: 3px 8px;
+}
+html .gantt-container .upper-text {
+  font-size: 13px;
+}
+html .gantt .bar-label {
+  font-family: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
 }

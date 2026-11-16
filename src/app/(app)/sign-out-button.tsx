@@ -16,7 +16,7 @@ export function SignOutButton() {
         router.refresh();
       }}
     >
-      Sign out
+      Гарах
     </Button>
   );
 }

@@ -9,16 +9,16 @@ export type AttachmentItem = { id: string; fileName: string; size: number };
 
 const formatSize = (n: number) =>
   n < 1024
-    ? `${n} B`
+    ? `${n} Б`
     : n < 1024 * 1024
-      ? `${(n / 1024).toFixed(1)} KB`
-      : `${(n / 1024 / 1024).toFixed(1)} MB`;
+      ? `${(n / 1024).toFixed(1)} КБ`
+      : `${(n / 1024 / 1024).toFixed(1)} МБ`;
 
 async function errorOf(res: Response) {
   try {
     return ((await res.json()) as { error?: string }).error ?? res.statusText;
   } catch {
-    return res.statusText || `Request failed (${res.status})`;
+    return res.statusText || `Хүсэлт амжилтгүй (${res.status})`;
   }
 }
 
@@ -44,7 +44,8 @@ export function Attachments({
     if (!files?.length) return;
     setError(undefined);
     const tooBig = [...files].find((f) => f.size > maxMb * 1024 * 1024);
-    if (tooBig) return setError(`“${tooBig.name}” exceeds ${maxMb} MB.`);
+    if (tooBig)
+      return setError(`“${tooBig.name}” файл ${maxMb} МБ-аас том байна.`);
     const body = new FormData();
     for (const f of files) body.append("file", f);
     setBusy(true);
@@ -56,7 +57,7 @@ export function Attachments({
       if (!res.ok) setError(await errorOf(res));
       else startTransition(() => router.refresh());
     } catch {
-      setError("Upload failed. Check your connection and try again.");
+      setError("Байршуулж чадсангүй. Холболтоо шалгаад дахин оролдоно уу.");
     } finally {
       setBusy(false);
       if (input.current) input.current.value = "";
@@ -64,7 +65,7 @@ export function Attachments({
   }
 
   async function remove(item: AttachmentItem) {
-    if (!window.confirm(`Delete “${item.fileName}”?`)) return;
+    if (!window.confirm(`“${item.fileName}” файлыг устгах уу?`)) return;
     setError(undefined);
     const res = await fetch(`/api/attachments/${item.id}`, {
       method: "DELETE",
@@ -76,13 +77,13 @@ export function Attachments({
   return (
     <div>
       {items.length === 0 ? (
-        <p className="text-muted-foreground text-sm">No attachments.</p>
+        <p className="text-muted-foreground text-sm">Хавсралт алга.</p>
       ) : (
-        <ul className="divide-y rounded-lg border">
+        <ul className="divide-y border">
           {items.map((a) => (
             <li
               key={a.id}
-              className="flex items-center gap-3 px-3 py-2 text-sm"
+              className="flex items-center gap-3 px-3 py-1.5 text-sm"
             >
               <Paperclip
                 className="text-muted-foreground size-4 shrink-0"
@@ -102,10 +103,10 @@ export function Attachments({
                 type="button"
                 variant="ghost"
                 size="sm"
-                aria-label={`Delete ${a.fileName}`}
+                aria-label={`${a.fileName} устгах`}
                 onClick={() => remove(a)}
               >
-                Delete
+                Устгах
               </Button>
             </li>
           ))}
@@ -117,7 +118,7 @@ export function Attachments({
           type="file"
           multiple
           hidden
-          aria-label="Choose files to attach"
+          aria-label="Хавсаргах файл сонгох"
           onChange={(e) => upload(e.target.files)}
         />
         <Button
@@ -126,12 +127,12 @@ export function Attachments({
           disabled={busy || full}
           onClick={() => input.current?.click()}
         >
-          {busy ? "Uploading…" : "Attach files"}
+          {busy ? "Байршуулж байна…" : "Файл хавсаргах"}
         </Button>
         <span className="text-muted-foreground text-xs">
           {full
-            ? `Limit of ${maxFiles} attachments reached.`
-            : `Up to ${maxMb} MB each, ${maxFiles} per todo.`}
+            ? `${maxFiles} хавсралтын хязгаарт хүрсэн.`
+            : `Тус бүр ${maxMb} МБ хүртэл, нэг ажилд ${maxFiles} хүртэл.`}
         </span>
       </div>
       {error && (

@@ -1,17 +1,17 @@
 import type { ListQuery, TodoStatusValue } from "@/lib/validation";
 
 export const STATUS_LABEL: Record<TodoStatusValue, string> = {
-  TODO: "To do",
-  IN_PROGRESS: "In progress",
-  DONE: "Done",
-  CANCELLED: "Cancelled",
+  TODO: "Хийх",
+  IN_PROGRESS: "Явагдаж буй",
+  DONE: "Дууссан",
+  CANCELLED: "Цуцлагдсан",
 };
 
 export const STATUS_TONE: Record<TodoStatusValue, string> = {
-  TODO: "bg-status-todo/12 text-status-todo",
-  IN_PROGRESS: "bg-status-progress/12 text-status-progress",
-  DONE: "bg-status-done/12 text-status-done",
-  CANCELLED: "bg-status-cancelled/12 text-status-cancelled",
+  TODO: "text-status-todo",
+  IN_PROGRESS: "text-status-progress",
+  DONE: "text-status-done",
+  CANCELLED: "text-status-cancelled",
 };
 
 /** Gantt bar progress per status. */
@@ -25,14 +25,8 @@ export const STATUS_PROGRESS: Record<TodoStatusValue, number> = {
 /** Date -> "YYYY-MM-DD" (UTC), for <input type="date"> values. */
 export const toDateInput = (d: Date) => d.toISOString().slice(0, 10);
 
-/** Date -> "10 Nov 2026" (UTC). */
-export const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  });
+/** Date -> "2026-11-10" (UTC): compact and unambiguous. */
+export const formatDate = toDateInput;
 
 /** Builds "/?…" from the current list query with overrides; defaults are omitted. */
 export function listHref(

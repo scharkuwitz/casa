@@ -4,21 +4,21 @@ import { listHref } from "@/lib/todo-ui";
 import type { ListQuery } from "@/lib/validation";
 
 const TABS = [
-  ["list", "List"],
-  ["gantt", "Gantt"],
+  ["list", "Жагсаалт"],
+  ["gantt", "Гант"],
 ] as const;
 
-/** Wikipedia "Article / Talk"-style underline tabs. */
+/** Wikipedia-style underline tabs. */
 export function ViewTabs({ query }: { query: ListQuery }) {
   return (
-    <nav aria-label="View" className="flex gap-1 border-b">
+    <nav aria-label="Харагдац" className="flex gap-4 border-b">
       {TABS.map(([view, label]) => (
         <Link
           key={view}
           href={listHref(query, { view })}
           aria-current={query.view === view ? "page" : undefined}
           className={cn(
-            "-mb-px border-b-2 px-3 py-1.5 text-sm hover:no-underline",
+            "-mb-px border-b-2 py-1 text-sm hover:no-underline",
             query.view === view
               ? "border-primary text-foreground font-semibold"
               : "text-muted-foreground border-transparent",

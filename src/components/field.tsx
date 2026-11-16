@@ -30,4 +30,4 @@ export function Field({
 }
 
 export const nativeControl =
-  "border-input bg-card focus-visible:border-ring focus-visible:ring-ring/50 h-8 w-full rounded-lg border px-2.5 text-sm outline-none focus-visible:ring-3 aria-invalid:border-destructive";
+  "border-input bg-card focus-visible:border-ring focus-visible:ring-ring/50 h-7 w-full rounded-sm border px-2 text-sm outline-none focus-visible:ring-2 aria-invalid:border-destructive";

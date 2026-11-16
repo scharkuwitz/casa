@@ -55,26 +55,25 @@ export default async function HomePage({ searchParams }: PageProps<"/">) {
   return (
     <>
       <div className="flex items-end justify-between gap-4">
-        <h1 className="flex-1">Todos</h1>
+        <h1 className="flex-1">Ажлууд</h1>
         <Link href="/todos/new" className={buttonVariants()}>
-          New todo
+          Шинэ ажил
         </Link>
       </div>
-      <div className="mt-4">
+      <div className="mt-3">
         <ViewTabs query={query} />
       </div>
-      <div className="mt-4">
+      <div className="mt-3">
         <ListFilters query={query} categories={categories} />
       </div>
-      <div className="mt-4">
+      <div className="mt-3">
         {todos.length === 0 ? (
           <p className="text-muted-foreground">
             {filtered ? (
-              "No todos match these filters."
+              "Шүүлтүүрт тохирох ажил алга."
             ) : (
               <>
-                No todos yet.{" "}
-                <Link href="/todos/new">Create the first one</Link>.
+                Ажил алга. <Link href="/todos/new">Эхний ажлаа үүсгэх</Link>.
               </>
             )}
           </p>

@@ -20,15 +20,15 @@ export async function GET(
   _request: Request,
   ctx: RouteContext<"/api/attachments/[id]">,
 ) {
-  if (!(await getSession())) return json({ error: "Unauthorized" }, 401);
+  if (!(await getSession())) return json({ error: "Нэвтрээгүй байна." }, 401);
   const att = await load(ctx);
-  if (!att) return json({ error: "Not found" }, 404);
+  if (!att) return json({ error: "Олдсонгүй." }, 404);
 
   let file;
   try {
     file = await openStoredFile(att.todoId, att.storedName);
   } catch {
-    return json({ error: "File is missing on the server." }, 404);
+    return json({ error: "Файл серверээс олдсонгүй." }, 404);
   }
   return new Response(file.stream, {
     headers: {
@@ -46,10 +46,10 @@ export async function DELETE(
   request: Request,
   ctx: RouteContext<"/api/attachments/[id]">,
 ) {
-  if (!(await getSession())) return json({ error: "Unauthorized" }, 401);
-  if (!isSameOrigin(request)) return json({ error: "Forbidden" }, 403);
+  if (!(await getSession())) return json({ error: "Нэвтрээгүй байна." }, 401);
+  if (!isSameOrigin(request)) return json({ error: "Хориглосон хүсэлт." }, 403);
   const att = await load(ctx);
-  if (!att) return json({ error: "Not found" }, 404);
+  if (!att) return json({ error: "Олдсонгүй." }, 404);
 
   await db.attachment.delete({ where: { id: att.id } });
   await removeStoredFile(att.todoId, att.storedName);

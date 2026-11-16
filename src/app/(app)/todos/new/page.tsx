@@ -13,15 +13,15 @@ export default async function NewTodoPage() {
   const today = toDateInput(new Date());
   return (
     <>
-      <h1>New todo</h1>
-      <p className="text-muted-foreground mt-3 text-sm">
-        You can attach files once the todo has been created.
+      <h1>Шинэ ажил</h1>
+      <p className="text-muted-foreground mt-2 text-sm">
+        Ажил үүссэний дараа файл хавсаргах боломжтой.
       </p>
       <div className="mt-4">
         <TodoForm
           action={createTodo}
           categories={categories}
-          submitLabel="Create todo"
+          submitLabel="Ажил үүсгэх"
           defaults={{
             title: "",
             description: "",

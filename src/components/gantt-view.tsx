@@ -26,6 +26,11 @@ export type GanttTodo = {
 };
 
 const MODES = ["Day", "Week", "Month"] as const;
+const MODE_LABEL: Record<(typeof MODES)[number], string> = {
+  Day: "Өдөр",
+  Week: "7 хоног",
+  Month: "Сар",
+};
 type Mode = (typeof MODES)[number];
 
 const escapeHtml = (s: string) =>
@@ -62,6 +67,12 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
   const [notice, setNotice] = useState<{ ok: boolean; text: string }>();
   const [, startTransition] = useTransition();
 
+  // frappe-gantt hardcodes the English "Today" label.
+  const translateToday = () => {
+    const b = host.current?.querySelector(".today-button");
+    if (b) b.textContent = "Өнөөдөр";
+  };
+
   useEffect(() => {
     const sig = signature(todos);
     if (!host.current || (chart.current && shown.current === sig)) return;
@@ -89,6 +100,8 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
       readonly_progress: true,
       today_button: true,
       scroll_to: "start",
+      language: "mn",
+      bar_corner_radius: 0,
       popup_on: "hover",
       popup: (ctx) => {
         const status = ctx.task.status as TodoStatusValue;
@@ -109,23 +122,24 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
         shown.current = signature(
           todos.map((t) => ({ ...t, ...(dates.current.get(t.id) ?? {}) })),
         );
-        setNotice({ ok: true, text: "Release to save…" });
+        setNotice({ ok: true, text: "Суллаад хадгална…" });
       },
     });
+    translateToday();
   }, [todos, mode, router]);
 
   const flush = useEffectEvent(() => {
     const batch = [...pending.current];
     pending.current.clear();
     if (!batch.length) return;
-    setNotice({ ok: true, text: "Saving…" });
+    setNotice({ ok: true, text: "Хадгалж байна…" });
     startTransition(async () => {
       let failure: string | undefined;
       for (const [id, d] of batch) {
         const res = await updateTodoDates(id, d.start, d.end);
         if (res?.ok) saved.current.set(id, d);
         else {
-          failure = res?.message ?? "Could not save dates.";
+          failure = res?.message ?? "Хугацааг хадгалж чадсангүй.";
           const back = saved.current.get(id);
           if (back) dates.current.set(id, back);
         }
@@ -134,7 +148,7 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
         setNotice({ ok: false, text: failure });
         shown.current = ""; // force a rebuild from server data
         router.refresh();
-      } else setNotice({ ok: true, text: "Dates saved." });
+      } else setNotice({ ok: true, text: "Хугацаа хадгалагдлаа." });
     });
   });
 
@@ -163,6 +177,7 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
 
   useEffect(() => {
     chart.current?.change_view_mode(mode, true);
+    translateToday();
   }, [mode]);
 
   return (
@@ -177,20 +192,17 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
             aria-pressed={m === mode}
             onClick={() => setMode(m)}
           >
-            {m}
+            {MODE_LABEL[m]}
           </Button>
         ))}
         <span
           role="status"
           className={`text-sm ${notice?.ok === false ? "text-destructive" : "text-muted-foreground"}`}
         >
-          {notice?.text ?? "Drag a bar to reschedule; click it to open."}
+          {notice?.text ?? "Баарыг чирж хугацааг шилжүүлнэ, дарж нээнэ."}
         </span>
       </div>
-      <div
-        ref={host}
-        className="gantt-host overflow-hidden rounded-lg border"
-      />
+      <div ref={host} className="gantt-host overflow-hidden border" />
     </div>
   );
 }

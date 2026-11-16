@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 /** Submit button that asks for confirmation before the parent <form action> runs. */
 export function DeleteButton({
   confirmText,
-  children = "Delete",
+  children = "Устгах",
   size = "default",
 }: {
   confirmText: string;

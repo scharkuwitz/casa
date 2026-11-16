@@ -11,19 +11,19 @@ export type TodoStatusValue = (typeof TODO_STATUSES)[number];
 /** Date-only "YYYY-MM-DD" string -> Date at UTC midnight. */
 export const dateOnly = z
   .string()
-  .regex(/^\d{4}-\d{2}-\d{2}$/, "Use the format YYYY-MM-DD")
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Огноог YYYY-MM-DD хэлбэрээр оруулна уу")
   .refine(
     (s) => {
       const d = new Date(`${s}T00:00:00.000Z`);
       return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
     },
     {
-      message: "Not a valid date",
+      message: "Буруу огноо",
     },
   )
   .transform((s) => new Date(`${s}T00:00:00.000Z`));
 
-export const idSchema = z.string().regex(/^[A-Za-z0-9_-]{1,64}$/, "Invalid id");
+export const idSchema = z.string().regex(/^[A-Za-z0-9_-]{1,64}$/, "Буруу ID");
 
 export const statusSchema = z.enum(TODO_STATUSES);
 
@@ -31,7 +31,7 @@ const dateRange = <T extends { startDate: Date; endDate: Date }>(v: T) =>
   v.endDate >= v.startDate;
 const dateRangeIssue = {
   path: ["endDate"],
-  message: "End date must be on or after the start date",
+  message: "Дуусах огноо нь эхлэх огнооноос хойш эсвэл ижил байх ёстой",
 };
 
 export const todoSchema = z
@@ -39,11 +39,11 @@ export const todoSchema = z
     title: z
       .string()
       .trim()
-      .min(1, "Title is required")
-      .max(200, "Max 200 characters"),
+      .min(1, "Гарчиг оруулна уу")
+      .max(200, "Хамгийн ихдээ 200 тэмдэгт"),
     description: z
       .string()
-      .max(5000, "Max 5000 characters")
+      .max(5000, "Хамгийн ихдээ 5000 тэмдэгт")
       .default("")
       .transform((v) => v.replace(/\r\n/g, "\n")),
     status: statusSchema.default("TODO"),
@@ -65,9 +65,11 @@ export const categorySchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "Name is required")
-    .max(50, "Max 50 characters"),
-  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a hex color like #3366cc"),
+    .min(1, "Нэр оруулна уу")
+    .max(50, "Хамгийн ихдээ 50 тэмдэгт"),
+  color: z
+    .string()
+    .regex(/^#[0-9a-fA-F]{6}$/, "Өнгийг #9c2233 шиг hex хэлбэрээр оруулна уу"),
 });
 export type CategoryInput = z.output<typeof categorySchema>;
 

@@ -14,7 +14,7 @@ export function ListFilters({
 }) {
   const filtered = !!(query.status || query.category);
   return (
-    <form className="flex flex-wrap items-end gap-3" action="/" method="get">
+    <form className="flex flex-wrap items-end gap-2" action="/" method="get">
       {query.view !== "list" && (
         <input type="hidden" name="view" value={query.view} />
       )}
@@ -25,13 +25,15 @@ export function ListFilters({
         <input type="hidden" name="dir" value={query.dir} />
       )}
       <label className="text-sm">
-        <span className="mb-1 block font-medium">Status</span>
+        <span className="text-muted-foreground mb-0.5 block text-xs">
+          Төлөв
+        </span>
         <select
           name="status"
           defaultValue={query.status ?? ""}
           className={`${nativeControl} w-auto min-w-32`}
         >
-          <option value="">All</option>
+          <option value="">Бүгд</option>
           {TODO_STATUSES.map((s) => (
             <option key={s} value={s}>
               {STATUS_LABEL[s]}
@@ -40,13 +42,15 @@ export function ListFilters({
         </select>
       </label>
       <label className="text-sm">
-        <span className="mb-1 block font-medium">Category</span>
+        <span className="text-muted-foreground mb-0.5 block text-xs">
+          Ангилал
+        </span>
         <select
           name="category"
           defaultValue={query.category ?? ""}
           className={`${nativeControl} w-auto min-w-32`}
         >
-          <option value="">All</option>
+          <option value="">Бүгд</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -55,14 +59,14 @@ export function ListFilters({
         </select>
       </label>
       <Button type="submit" variant="outline">
-        Apply
+        Шүүх
       </Button>
       {filtered && (
         <Link
           href={query.view === "list" ? "/" : `/?view=${query.view}`}
           className="text-sm"
         >
-          Clear filters
+          Шүүлтүүр арилгах
         </Link>
       )}
     </form>
