@@ -5,15 +5,15 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Todos" },
-  { href: "/categories", label: "Categories" },
-  { href: "/settings", label: "Settings" },
+  { href: "/", label: "Ажлууд" },
+  { href: "/categories", label: "Ангилал" },
+  { href: "/settings", label: "Тохиргоо" },
 ];
 
 export function NavLinks() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main" className="flex gap-1 md:flex-col">
+    <nav aria-label="Үндсэн цэс" className="flex gap-4 md:flex-col md:gap-0.5">
       {links.map(({ href, label }) => {
         const active =
           href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -23,9 +23,8 @@ export function NavLinks() {
             href={href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "text-foreground hover:bg-muted rounded-md border-l-2 border-transparent px-3 py-1.5 text-sm hover:no-underline",
-              active &&
-                "border-primary bg-accent text-accent-foreground font-medium",
+              "text-muted-foreground hover:text-foreground border-l-2 border-transparent py-1 text-sm hover:no-underline md:pl-2.5",
+              active && "border-primary text-foreground font-semibold",
             )}
           >
             {label}

@@ -17,28 +17,28 @@ export default async function CategoriesPage() {
 
   return (
     <>
-      <h1>Categories</h1>
-      <h2 className="mt-6">Add category</h2>
+      <h1>Ангилал</h1>
+      <h2 className="mt-5">Ангилал нэмэх</h2>
       <div className="mt-4">
         <CategoryForm
           action={createCategory}
-          defaults={{ name: "", color: "#3366cc" }}
-          submitLabel="Add"
+          defaults={{ name: "", color: "#9c2233" }}
+          submitLabel="Нэмэх"
           resetOnSuccess
         />
       </div>
 
-      <h2 className="mt-10">All categories</h2>
+      <h2 className="mt-8">Бүх ангилал</h2>
       {categories.length === 0 ? (
-        <p className="text-muted-foreground mt-3">No categories yet.</p>
+        <p className="text-muted-foreground mt-3">Ангилал алга.</p>
       ) : (
-        <ul className="mt-4 divide-y rounded-lg border">
+        <ul className="mt-4 divide-y border">
           {categories.map((c) => (
-            <li key={c.id} className="space-y-2 p-3">
+            <li key={c.id} className="space-y-2 p-2.5">
               <CategoryForm
                 action={updateCategory.bind(null, c.id)}
                 defaults={{ name: c.name, color: c.color }}
-                submitLabel="Save"
+                submitLabel="Хадгалах"
               />
               <form
                 action={deleteCategory.bind(null, c.id)}
@@ -46,10 +46,10 @@ export default async function CategoriesPage() {
               >
                 <DeleteButton
                   size="sm"
-                  confirmText={`Delete category “${c.name}”? Its ${c._count.todos} todo(s) will be kept without a category.`}
+                  confirmText={`“${c.name}” ангиллыг устгах уу? Холбогдсон ${c._count.todos} ажил ангилалгүй үлдэнэ.`}
                 />
                 <span className="text-muted-foreground text-xs">
-                  Used by {c._count.todos} todo{c._count.todos === 1 ? "" : "s"}
+                  {c._count.todos} ажилд ашиглагдаж байна
                 </span>
               </form>
             </li>

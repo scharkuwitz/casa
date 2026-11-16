@@ -18,7 +18,7 @@ export function ChangePasswordForm() {
     const form = new FormData(formEl);
     const next = String(form.get("newPassword"));
     if (next !== String(form.get("confirm"))) {
-      setMessage({ ok: false, text: "New passwords do not match." });
+      setMessage({ ok: false, text: "Шинэ нууц үг таарахгүй байна." });
       return;
     }
     setPending(true);
@@ -32,18 +32,18 @@ export function ChangePasswordForm() {
     if (error) {
       setMessage({
         ok: false,
-        text: error.message ?? "Could not change password.",
+        text: "Нууц үгийг солиж чадсангүй. Одоогийн нууц үгээ шалгана уу.",
       });
       return;
     }
     formEl.reset();
-    setMessage({ ok: true, text: "Password changed." });
+    setMessage({ ok: true, text: "Нууц үг солигдлоо." });
   }
 
   return (
     <form onSubmit={onSubmit} className="max-w-sm space-y-3">
       <div className="space-y-1">
-        <Label htmlFor="currentPassword">Current password</Label>
+        <Label htmlFor="currentPassword">Одоогийн нууц үг</Label>
         <Input
           id="currentPassword"
           name="currentPassword"
@@ -53,7 +53,7 @@ export function ChangePasswordForm() {
         />
       </div>
       <div className="space-y-1">
-        <Label htmlFor="newPassword">New password</Label>
+        <Label htmlFor="newPassword">Шинэ нууц үг</Label>
         <Input
           id="newPassword"
           name="newPassword"
@@ -64,7 +64,7 @@ export function ChangePasswordForm() {
         />
       </div>
       <div className="space-y-1">
-        <Label htmlFor="confirm">Confirm new password</Label>
+        <Label htmlFor="confirm">Шинэ нууц үгээ давтах</Label>
         <Input
           id="confirm"
           name="confirm"
@@ -85,7 +85,7 @@ export function ChangePasswordForm() {
         </p>
       )}
       <Button type="submit" disabled={pending}>
-        {pending ? "Saving…" : "Change password"}
+        {pending ? "Хадгалж байна…" : "Нууц үг солих"}
       </Button>
     </form>
   );

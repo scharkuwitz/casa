@@ -13,6 +13,8 @@ declare module "frappe-gantt" {
     view_mode?: string;
     readonly_progress?: boolean;
     today_button?: boolean;
+    language?: string;
+    bar_corner_radius?: number;
     scroll_to?: "start" | "end" | "today" | string;
     popup_on?: "click" | "hover";
     popup?: (ctx: { task: GanttTask; chart: Gantt }) => string | false | void;

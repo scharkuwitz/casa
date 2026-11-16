@@ -32,7 +32,7 @@ export function CategoryForm({
       className="flex flex-wrap items-start gap-3"
     >
       <div className="min-w-48 flex-1">
-        <Field label="Name" htmlFor={`name-${uid}`} errors={err.name}>
+        <Field label="Нэр" htmlFor={`name-${uid}`} errors={err.name}>
           <Input
             id={`name-${uid}`}
             name="name"
@@ -43,18 +43,18 @@ export function CategoryForm({
           />
         </Field>
       </div>
-      <Field label="Color" htmlFor={`color-${uid}`} errors={err.color}>
+      <Field label="Өнгө" htmlFor={`color-${uid}`} errors={err.color}>
         <input
           id={`color-${uid}`}
           name="color"
           type="color"
           defaultValue={v.color ?? defaults.color}
-          className="border-input bg-card h-8 w-14 cursor-pointer rounded-lg border p-0.5"
+          className="border-input bg-card h-7 w-12 cursor-pointer rounded-sm border p-0.5"
         />
       </Field>
       <div className="flex items-center gap-2 self-end">
         <Button type="submit" disabled={pending}>
-          {pending ? "Saving…" : submitLabel}
+          {pending ? "Хадгалж байна…" : submitLabel}
         </Button>
         {state?.message && (
           <span

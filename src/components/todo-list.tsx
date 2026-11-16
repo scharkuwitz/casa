@@ -55,24 +55,24 @@ export function TodoList({
   query: ListQuery;
 }) {
   return (
-    <div className="overflow-x-auto rounded-lg border">
+    <div className="overflow-x-auto">
       <table>
         <thead>
           <tr>
             <SortHeader query={query} sortKey="title">
-              Title
+              Нэр
             </SortHeader>
-            <th>Category</th>
+            <th>Ангилал</th>
             <SortHeader query={query} sortKey="status">
-              Status
+              Төлөв
             </SortHeader>
             <SortHeader query={query} sortKey="start">
-              Start
+              Эхлэх
             </SortHeader>
             <SortHeader query={query} sortKey="end">
-              End
+              Дуусах
             </SortHeader>
-            <th>Days</th>
+            <th>Хоног</th>
           </tr>
         </thead>
         <tbody>
@@ -83,7 +83,7 @@ export function TodoList({
                 {t._count.attachments > 0 && (
                   <span
                     className="text-muted-foreground ml-2 inline-flex items-center gap-0.5 align-middle text-xs"
-                    title={`${t._count.attachments} attachment(s)`}
+                    title={`Хавсралт: ${t._count.attachments}`}
                   >
                     <Paperclip className="size-3" aria-hidden />
                     {t._count.attachments}
@@ -95,7 +95,7 @@ export function TodoList({
                   <span className="inline-flex items-center gap-1.5">
                     <span
                       aria-hidden
-                      className="size-2.5 rounded-full"
+                      className="size-2.5"
                       style={{ backgroundColor: t.category.color }}
                     />
                     {t.category.name}

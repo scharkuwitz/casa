@@ -8,7 +8,7 @@ M1 (scaffold), M2 (Prisma + Better Auth foundation), M3 (auth gating), M4 (todo/
 
 **Progress tracking is mandatory.** The live milestone checklist and full design doc are in project memory (`~/.claude/projects/-home-dispel-Projects-case/memory/`): `todo-app-milestones.md` (current milestone, next step, deviations, session log) and `todo-app-design.md`. Read the checklist first in every session or after context compaction, tick tasks as they are verified, and log deviations from the design there.
 
-**Next.js here is v16** and differs from older versions: read the relevant guide in `node_modules/next/dist/docs/` before writing Next code (see `AGENTS.md`). Cache Components is deliberately disabled. Frontend look-and-feel: `docs/DESIGN.md` (tokens in `src/app/globals.css`).
+**Next.js here is v16** and differs from older versions: read the relevant guide in `node_modules/next/dist/docs/` before writing Next code (see `AGENTS.md`). Cache Components is deliberately disabled. Frontend look-and-feel: `docs/DESIGN.md` (tokens in `src/app/globals.css`). The UI is **Mongolian**: write new user-facing strings in Mongolian, and use IBM Plex Sans (Cyrillic subset) only.
 
 ## What this is
 

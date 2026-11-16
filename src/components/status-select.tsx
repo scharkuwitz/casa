@@ -20,7 +20,7 @@ export function StatusSelect({
   return (
     <>
       <select
-        aria-label="Status"
+        aria-label="Төлөв"
         aria-invalid={!!error}
         title={error}
         disabled={pending}
@@ -35,7 +35,7 @@ export function StatusSelect({
             const res = await updateTodoStatus(id, next);
             if (!res?.ok) {
               setValue(prev);
-              setError(res?.message ?? "Could not update status");
+              setError(res?.message ?? "Төлөвийг шинэчилж чадсангүй");
             }
           });
         }}

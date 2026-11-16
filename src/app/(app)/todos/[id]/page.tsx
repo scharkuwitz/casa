@@ -35,24 +35,24 @@ export default async function TodoPage({ params }: PageProps<"/todos/[id]">) {
   if (!todo) notFound();
 
   const rows: [string, React.ReactNode][] = [
-    ["Status", <StatusBadge key="s" status={todo.status as TodoStatusValue} />],
-    ["Category", todo.category?.name ?? "—"],
-    ["Start", formatDate(todo.startDate)],
-    ["End", formatDate(todo.endDate)],
-    ["Created", formatDate(todo.createdAt)],
+    ["Төлөв", <StatusBadge key="s" status={todo.status as TodoStatusValue} />],
+    ["Ангилал", todo.category?.name ?? "—"],
+    ["Эхлэх", formatDate(todo.startDate)],
+    ["Дуусах", formatDate(todo.endDate)],
+    ["Үүсгэсэн", formatDate(todo.createdAt)],
   ];
 
   return (
     <>
       <h1>{todo.title}</h1>
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_17rem]">
+      <div className="mt-4 grid gap-6 lg:grid-cols-[1fr_16rem]">
         <div className="min-w-0">
-          <h2>Edit</h2>
-          <div className="mt-4">
+          <h2>Засах</h2>
+          <div className="mt-3">
             <TodoForm
               action={updateTodo.bind(null, todo.id)}
               categories={categories}
-              submitLabel="Save changes"
+              submitLabel="Өөрчлөлт хадгалах"
               defaults={{
                 title: todo.title,
                 description: todo.description,
@@ -63,8 +63,8 @@ export default async function TodoPage({ params }: PageProps<"/todos/[id]">) {
               }}
             />
           </div>
-          <h2 className="mt-10">Attachments</h2>
-          <div className="mt-4">
+          <h2 className="mt-8">Хавсралт</h2>
+          <div className="mt-3">
             <Attachments
               todoId={todo.id}
               items={todo.attachments}
@@ -72,33 +72,31 @@ export default async function TodoPage({ params }: PageProps<"/todos/[id]">) {
               maxMb={MAX_UPLOAD_BYTES / 1024 / 1024}
             />
           </div>
-          <h2 className="mt-10">Delete</h2>
+          <h2 className="mt-8">Устгах</h2>
           <p className="text-muted-foreground mt-3 mb-3 text-sm">
-            Removes this todo and any attachments. This cannot be undone.
+            Энэ ажил болон бүх хавсралтыг устгана. Буцаах боломжгүй.
           </p>
           <form action={deleteTodo.bind(null, todo.id)}>
-            <DeleteButton confirmText={`Delete “${todo.title}”?`}>
-              Delete todo
+            <DeleteButton confirmText={`“${todo.title}” ажлыг устгах уу?`}>
+              Ажил устгах
             </DeleteButton>
           </form>
         </div>
-        <aside className="bg-infobox order-first h-fit rounded-lg border text-sm lg:order-last">
-          <div className="bg-accent text-accent-foreground rounded-t-lg border-b px-3 py-2 text-center font-semibold">
-            Details
-          </div>
+        <aside className="order-first h-fit border text-sm lg:order-last">
+          <div className="border-b px-3 py-1.5 font-semibold">Мэдээлэл</div>
           <dl className="divide-y">
             {rows.map(([k, v]) => (
               <div
                 key={k}
-                className="grid grid-cols-[6rem_1fr] items-center gap-2 px-3 py-2"
+                className="grid grid-cols-[6rem_1fr] items-center gap-2 px-3 py-1.5"
               >
-                <dt className="font-semibold">{k}</dt>
-                <dd className="text-muted-foreground">{v}</dd>
+                <dt className="text-muted-foreground">{k}</dt>
+                <dd>{v}</dd>
               </div>
             ))}
           </dl>
           {todo.description && (
-            <p className="text-muted-foreground border-t px-3 py-2 whitespace-pre-wrap">
+            <p className="border-t px-3 py-1.5 whitespace-pre-wrap">
               {todo.description}
             </p>
           )}

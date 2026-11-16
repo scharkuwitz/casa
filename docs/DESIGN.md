@@ -1,18 +1,20 @@
 # Frontend design system
 
-Modeled on **Wikipedia (Vector-style) only**, with a modern finish rather than a pixel copy. Tokens live in `src/app/globals.css`. (MyAnimeList and Fandom references were dropped on 2026-11-16.)
+"Ink and red stamp": a flat, compact, square-cornered reading UI in the spirit of Wikipedia and the movie/anime/manga wikis (dense tables, hairline rules, text-first navigation). Tokens live in `src/app/globals.css`. Replaces the earlier blue, rounded "modernised Wikipedia" look (issue #3).
 
-| Aspect       | Decision                                                                                                                                           |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout       | Sticky white top bar (serif wordmark, user, sign out); left "Navigation" sidebar; content as an article card. Sidebar becomes a top row below `md` |
-| Headings     | Source Serif 4; h1/h2 regular weight with a 1px bottom rule (`--rule`); h3/h4 Inter semibold                                                       |
-| Body / UI    | Inter, 15px base, line-height 1.65                                                                                                                 |
-| Links        | Wikipedia blue `#3366cc` (dark `#88a3e8`), underline on hover only                                                                                 |
-| Page tabs    | Wikipedia "Article / Talk" style underline tabs (List / Gantt), action link on the right                                                           |
-| Infobox      | Right-hand `--infobox` panel with tinted title row and label/value rows for todo metadata; stacks under content on mobile                          |
-| Tables       | Rounded bordered wrapper (`overflow-x-auto`), muted header row, zebra rows, hover tint                                                             |
-| Modern touch | 8px radius (cards 12px), soft card shadow (`--shadow-card`), pill status badges, soft off-white page behind white content card                     |
-| Dark mode    | Wikipedia night palette (`#101418` page, `#151a20` cards, `#eaecf0` text), `.dark` class, no shadows                                               |
-| Status       | TODO gray, IN_PROGRESS blue, DONE green, CANCELLED red; tinted pill badges (`bg-status-*/12`) and Gantt bars                                       |
+| Aspect     | Decision                                                                                                                                               |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Language   | UI text is Mongolian (`<html lang="mn">`). Strings live next to their components; shared ones in `lib/todo-ui.ts`, `lib/validation.ts`, `server/*`     |
+| Branding   | Title "Вектор календар", subtitle "Ажлын төлөвлөгөө, явцын хяналтын самбар" (top bar, login, page `<title>`)                                           |
+| Type       | IBM Plex Sans only (`latin` + `cyrillic` subsets, 400/500/600). 14px base, 1.5 line height. Headings are semibold: h1 1.3rem, h2 1.05rem, h3 0.95rem   |
+| Palette    | Neutral paper `#f6f6f5`, ink `#1e1e1c`, single accent crimson `#9c2233` (links `#8a1c2b`), hairline rules `#b5b3ad`. No blue hues anywhere             |
+| Dark mode  | `.dark` class (not wired to a toggle yet): `#161615` page, `#e6e4e0` text, accent `#d4515f`, links `#e8808b`, `color-scheme: dark`                     |
+| Status     | TODO grey, IN_PROGRESS amber, DONE green, CANCELLED plum; shown as outlined square badges and as Gantt bar fills                                       |
+| Surfaces   | No cards, no shadows, no fills: navigation and content sit directly on the page; the only structure is 1px rules and an infobox outline on todo detail |
+| Radius     | All radius tokens are 1-2px; no pills or circles (category dots are squares). Gantt chrome is flattened in `globals.css`                               |
+| Navigation | Plain text links in a left column (top row on mobile); the active link has a 2px crimson left border and semibold text                                 |
+| Tables     | No outer border, no zebra; muted small header with a rule, row rules, faint hover tint, 1.5 / 2 spacing units of padding                               |
+| Controls   | 28px high (`h-7`), 2px radius, primary button is solid crimson, destructive is outlined                                                                |
+| Dates      | `YYYY-MM-DD` everywhere (compact, unambiguous)                                                                                                         |
 
-Status: first applied 2026-11-16; `src/app/(app)/design-preview/page.tsx` is a temporary static preview (delete once approved).
+Known limitation: frappe-gantt formats month names through `Intl` with `language: "mn"`; browsers without Mongolian locale data (e.g. the headless Chromium used for screenshots) fall back to English month names.

@@ -2,10 +2,10 @@ import { LoginForm } from "./login-form";
 
 export default function LoginPage() {
   return (
-    <main className="mx-auto mt-24 w-full max-w-sm px-4">
-      <p className="font-heading mb-1 text-center text-3xl">Case</p>
-      <p className="text-muted-foreground mb-5 text-center text-sm">
-        Sign in to continue
+    <main className="mx-auto mt-20 w-full max-w-sm px-4">
+      <h1 className="mb-1 border-0 pb-0 text-xl">Вектор календар</h1>
+      <p className="text-muted-foreground mb-5 text-sm">
+        Ажлын төлөвлөгөө, явцын хяналтын самбар
       </p>
       <LoginForm />
     </main>

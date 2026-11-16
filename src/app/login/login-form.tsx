@@ -23,7 +23,7 @@ export function LoginForm() {
     });
     setPending(false);
     if (error) {
-      setError("Invalid email or password.");
+      setError("Имэйл эсвэл нууц үг буруу байна.");
       return;
     }
     router.replace("/");
@@ -31,12 +31,9 @@ export function LoginForm() {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="bg-card shadow-card space-y-3 rounded-xl border p-5"
-    >
+    <form onSubmit={onSubmit} className="space-y-3 border-t pt-4">
       <div className="space-y-1">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">Имэйл</Label>
         <Input
           id="email"
           name="email"
@@ -46,7 +43,7 @@ export function LoginForm() {
         />
       </div>
       <div className="space-y-1">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password">Нууц үг</Label>
         <Input
           id="password"
           name="password"
@@ -61,7 +58,7 @@ export function LoginForm() {
         </p>
       )}
       <Button type="submit" disabled={pending} className="w-full">
-        {pending ? "Signing in…" : "Sign in"}
+        {pending ? "Нэвтэрч байна…" : "Нэвтрэх"}
       </Button>
     </form>
   );

@@ -36,9 +36,9 @@ export function TodoForm({
     <form
       action={formAction}
       key={JSON.stringify(state?.values ?? null)}
-      className="max-w-2xl space-y-4"
+      className="max-w-2xl space-y-3"
     >
-      <Field label="Title" htmlFor="title" errors={err.title}>
+      <Field label="Нэр" htmlFor="title" errors={err.title}>
         <Input
           id="title"
           name="title"
@@ -48,7 +48,7 @@ export function TodoForm({
           aria-invalid={!!err.title}
         />
       </Field>
-      <Field label="Description" htmlFor="description" errors={err.description}>
+      <Field label="Тайлбар" htmlFor="description" errors={err.description}>
         <textarea
           id="description"
           name="description"
@@ -58,8 +58,8 @@ export function TodoForm({
           className={`${nativeControl} h-auto py-1.5`}
         />
       </Field>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Status" htmlFor="status" errors={err.status}>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Field label="Төлөв" htmlFor="status" errors={err.status}>
           <select
             id="status"
             name="status"
@@ -73,14 +73,14 @@ export function TodoForm({
             ))}
           </select>
         </Field>
-        <Field label="Category" htmlFor="categoryId" errors={err.categoryId}>
+        <Field label="Ангилал" htmlFor="categoryId" errors={err.categoryId}>
           <select
             id="categoryId"
             name="categoryId"
             defaultValue={v.categoryId}
             className={nativeControl}
           >
-            <option value="">None</option>
+            <option value="">Байхгүй</option>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -88,7 +88,7 @@ export function TodoForm({
             ))}
           </select>
         </Field>
-        <Field label="Start date" htmlFor="startDate" errors={err.startDate}>
+        <Field label="Эхлэх огноо" htmlFor="startDate" errors={err.startDate}>
           <Input
             id="startDate"
             name="startDate"
@@ -98,7 +98,7 @@ export function TodoForm({
             aria-invalid={!!err.startDate}
           />
         </Field>
-        <Field label="End date" htmlFor="endDate" errors={err.endDate}>
+        <Field label="Дуусах огноо" htmlFor="endDate" errors={err.endDate}>
           <Input
             id="endDate"
             name="endDate"
@@ -111,7 +111,7 @@ export function TodoForm({
       </div>
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={pending}>
-          {pending ? "Saving…" : submitLabel}
+          {pending ? "Хадгалж байна…" : submitLabel}
         </Button>
         {state?.message && (
           <p

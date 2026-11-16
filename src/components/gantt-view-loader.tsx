@@ -8,7 +8,7 @@ export const GanttViewLoader = dynamic(
   {
     ssr: false,
     loading: () => (
-      <p className="text-muted-foreground text-sm">Loading chart…</p>
+      <p className="text-muted-foreground text-sm">Диаграм ачаалж байна…</p>
     ),
   },
 );

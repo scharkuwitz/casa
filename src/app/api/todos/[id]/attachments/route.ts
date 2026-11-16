@@ -18,23 +18,23 @@ export async function POST(
   request: Request,
   ctx: RouteContext<"/api/todos/[id]/attachments">,
 ) {
-  if (!(await getSession())) return json({ error: "Unauthorized" }, 401);
-  if (!isSameOrigin(request)) return json({ error: "Forbidden" }, 403);
+  if (!(await getSession())) return json({ error: "Нэвтрээгүй байна." }, 401);
+  if (!isSameOrigin(request)) return json({ error: "Хориглосон хүсэлт." }, 403);
 
   const parsedId = idSchema.safeParse((await ctx.params).id);
-  if (!parsedId.success) return json({ error: "Not found" }, 404);
+  if (!parsedId.success) return json({ error: "Олдсонгүй." }, 404);
   const todoId = parsedId.data;
 
   const todo = await db.todo.findUnique({
     where: { id: todoId },
     select: { id: true, _count: { select: { attachments: true } } },
   });
-  if (!todo) return json({ error: "Not found" }, 404);
+  if (!todo) return json({ error: "Олдсонгүй." }, 404);
   const slots = MAX_ATTACHMENTS_PER_TODO - todo._count.attachments;
   if (slots <= 0)
     return json(
       {
-        error: `A todo can have at most ${MAX_ATTACHMENTS_PER_TODO} attachments.`,
+        error: `Нэг ажилд хамгийн ихдээ ${MAX_ATTACHMENTS_PER_TODO} хавсралт байж болно.`,
       },
       400,
     );
@@ -42,28 +42,31 @@ export async function POST(
   // Reject oversized bodies before buffering them (the real per-file check follows).
   const declared = Number(request.headers.get("content-length"));
   if (declared > MAX_UPLOAD_BYTES * slots + 1024 * 1024)
-    return json({ error: "Upload is too large." }, 413);
+    return json({ error: "Байршуулах файл хэт том байна." }, 413);
 
   let form: FormData;
   try {
     form = await request.formData();
   } catch {
-    return json({ error: "Expected multipart form data." }, 400);
+    return json({ error: "multipart form data шаардлагатай." }, 400);
   }
   const files = form.getAll("file").filter((f): f is File => f instanceof File);
-  if (!files.length) return json({ error: "No file provided." }, 400);
+  if (!files.length) return json({ error: "Файл сонгоогүй байна." }, 400);
   if (files.length > slots)
     return json(
-      { error: `Only ${slots} more attachment(s) allowed for this todo.` },
+      { error: `Энэ ажилд өөр ${slots} хавсралт нэмэх боломжтой.` },
       400,
     );
   for (const f of files) {
     if (f.size === 0)
-      return json({ error: `“${displayFileName(f.name)}” is empty.` }, 400);
+      return json(
+        { error: `“${displayFileName(f.name)}” файл хоосон байна.` },
+        400,
+      );
     if (f.size > MAX_UPLOAD_BYTES)
       return json(
         {
-          error: `“${displayFileName(f.name)}” exceeds ${MAX_UPLOAD_BYTES / 1024 / 1024} MB.`,
+          error: `“${displayFileName(f.name)}” файл ${MAX_UPLOAD_BYTES / 1024 / 1024} МБ-аас том байна.`,
         },
         413,
       );

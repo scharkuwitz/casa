@@ -18,7 +18,7 @@ function invalid(error: z.ZodError, formData?: FormData): ActionState {
   return {
     values: formData && stringValues(formData),
     ok: false,
-    message: "Please fix the highlighted fields.",
+    message: "Тодруулсан талбаруудыг засна уу.",
     fieldErrors: z.flattenError(error).fieldErrors,
   };
 }
@@ -30,8 +30,8 @@ async function categoryMissing(categoryId: string | null) {
 
 const categoryError = (formData: FormData): ActionState => ({
   ok: false,
-  message: "Please fix the highlighted fields.",
-  fieldErrors: { categoryId: ["Category does not exist"] },
+  message: "Тодруулсан талбаруудыг засна уу.",
+  fieldErrors: { categoryId: ["Ангилал олдсонгүй"] },
   values: stringValues(formData),
 });
 
@@ -63,12 +63,13 @@ export async function updateTodo(
     return categoryError(formData);
 
   const existing = await db.todo.findUnique({ where: { id: todoId } });
-  if (!existing) return { ok: false, message: "This todo no longer exists." };
+  if (!existing)
+    return { ok: false, message: "Энэ ажил байхгүй болсон байна." };
 
   await db.todo.update({ where: { id: todoId }, data: parsed.data });
   revalidatePath("/");
   revalidatePath(`/todos/${todoId}`);
-  return { ok: true, message: "Saved." };
+  return { ok: true, message: "Хадгалагдлаа." };
 }
 
 /** Bound to a <form action>; deletes the todo and its upload directory. */
@@ -87,12 +88,13 @@ export async function updateTodoStatus(
 ): Promise<ActionState> {
   await requireSession();
   const parsedStatus = statusSchema.safeParse(status);
-  if (!parsedStatus.success) return { ok: false, message: "Invalid status." };
+  if (!parsedStatus.success)
+    return { ok: false, message: "Төлөв буруу байна." };
   const { count } = await db.todo.updateMany({
     where: { id: idSchema.parse(id) },
     data: { status: parsedStatus.data },
   });
-  if (!count) return { ok: false, message: "This todo no longer exists." };
+  if (!count) return { ok: false, message: "Энэ ажил байхгүй болсон байна." };
   revalidatePath("/");
   revalidatePath(`/todos/${id}`);
   return { ok: true };
@@ -111,7 +113,7 @@ export async function updateTodoDates(
     where: { id: idSchema.parse(id) },
     data: parsed.data,
   });
-  if (!count) return { ok: false, message: "This todo no longer exists." };
+  if (!count) return { ok: false, message: "Энэ ажил байхгүй болсон байна." };
   revalidatePath("/");
   revalidatePath(`/todos/${id}`);
   return { ok: true };

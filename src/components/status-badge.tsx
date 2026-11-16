@@ -6,7 +6,7 @@ export function StatusBadge({ status }: { status: TodoStatusValue }) {
   return (
     <span
       className={cn(
-        "inline-block rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap",
+        "inline-block border border-current px-1.5 text-xs font-medium whitespace-nowrap",
         STATUS_TONE[status],
       )}
     >
