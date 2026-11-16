@@ -1,6 +1,6 @@
 # Casa
 
-A single-admin todo app with a filterable list and a Gantt chart over the same data.
+A calendar with a filterable list and a Gantt chart over the same data.
 
 Todos have a title, description, status (`TODO`, `IN_PROGRESS`, `DONE`, `CANCELLED`), start and end dates, an optional category and optional file attachments. Drag a bar on the Gantt chart to reschedule.
 
