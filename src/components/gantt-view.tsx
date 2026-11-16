@@ -12,7 +12,7 @@ import {
   useTransition,
 } from "react";
 import { Button } from "@/components/ui/button";
-import { STATUS_LABEL } from "@/lib/todo-ui";
+import { STATUS_LABEL, STATUS_PROGRESS } from "@/lib/todo-ui";
 import type { TodoStatusValue } from "@/lib/validation";
 import { updateTodoDates } from "@/server/todos";
 
@@ -27,13 +27,6 @@ export type GanttTodo = {
 
 const MODES = ["Day", "Week", "Month"] as const;
 type Mode = (typeof MODES)[number];
-
-const PROGRESS: Record<TodoStatusValue, number> = {
-  TODO: 0,
-  IN_PROGRESS: 50,
-  DONE: 100,
-  CANCELLED: 0,
-};
 
 const escapeHtml = (s: string) =>
   s.replace(
@@ -86,7 +79,7 @@ export function GanttView({ todos }: { todos: GanttTodo[] }) {
       name: escapeHtml(t.title),
       start: t.start,
       end: t.end,
-      progress: PROGRESS[t.status],
+      progress: STATUS_PROGRESS[t.status],
       custom_class: `gantt-${t.status.toLowerCase()}`,
       status: t.status,
     }));

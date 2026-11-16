@@ -13,7 +13,10 @@ export const dateOnly = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Use the format YYYY-MM-DD")
   .refine(
-    (s) => new Date(`${s}T00:00:00.000Z`).toISOString().slice(0, 10) === s,
+    (s) => {
+      const d = new Date(`${s}T00:00:00.000Z`);
+      return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+    },
     {
       message: "Not a valid date",
     },
