@@ -31,9 +31,18 @@ The admin account is created from `ADMIN_EMAIL` / `ADMIN_PASSWORD` on first star
 
 See [`.env.example`](.env.example). In production `DATABASE_URL` must be an absolute path (e.g. `file:/data/app.db`). Uploads go to `UPLOAD_DIR` (per-file limit `MAX_UPLOAD_MB`, default 10, max 10 files per todo).
 
+## Docker
+
+```bash
+docker compose up --build   # http://localhost:3000 (APP_PORT to change)
+docker compose down         # data survives; `down -v` deletes it
+```
+
+`compose.yml` builds the production image and takes `BETTER_AUTH_SECRET`, `ADMIN_EMAIL` and `ADMIN_PASSWORD` from your `.env`. The container runs as the non-root `node` user, keeps the database and uploads on the `casa-data` volume (`/data/app.db`, `/data/uploads`), applies pending migrations with `prisma migrate deploy` on every start and reports health from `/api/health`. If you bind-mount a host directory instead of the named volume, make it writable by uid 1000.
+
 ## Status
 
-Under development: the app is feature-complete for local use; tests, Docker and CI/CD deployment are still to come. Design notes are in [`docs/DESIGN.md`](docs/DESIGN.md).
+Under development: the app, tests and Docker image are done; CI/CD deployment is still to come. Design notes are in [`docs/DESIGN.md`](docs/DESIGN.md).
 
 ## License
 

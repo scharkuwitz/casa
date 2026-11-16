@@ -1,9 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-const admin = {
-  email: "e2e-admin@example.com",
-  password: "e2e-password-1234",
-};
+import { E2E_ADMIN as admin } from "./admin";
 
 test("health endpoint is public and minimal", async ({ request }) => {
   const res = await request.get("/api/health");
