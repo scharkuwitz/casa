@@ -7,11 +7,10 @@ export function proxy(request: NextRequest) {
   const hasCookie = !!getSessionCookie(request);
   const { pathname } = request.nextUrl;
 
-  if (pathname === "/login") {
-    return hasCookie
-      ? NextResponse.redirect(new URL("/", request.url))
-      : NextResponse.next();
-  }
+  // Never bounce /login -> / on cookie presence alone: a stale cookie (expired session, wiped
+  // or swapped DB) would loop with requireSession()'s /login redirect. The login page checks
+  // the real session itself.
+  if (pathname === "/login") return NextResponse.next();
   if (!hasCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
