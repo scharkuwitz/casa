@@ -1,0 +1,245 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --color-rule: var(--rule);
+  --shadow-card: var(--shadow-card);
+  --color-link: var(--link);
+  --color-infobox: var(--infobox);
+  --color-row-alt: var(--row-alt);
+  --color-status-todo: var(--status-todo);
+  --color-status-progress: var(--status-progress);
+  --color-status-done: var(--status-done);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Design system: Wikipedia-only (Vector-style sidebar + article layout, serif
+   headings with a thin rule, blue links, infobox, Wikipedia night mode),
+   modernised with softer radii, subtle depth and Inter UI text. See docs/DESIGN.md. */
+:root {
+  --background: #f8f9fa;
+  --foreground: #202122;
+  --card: #ffffff;
+  --card-foreground: #202122;
+  --popover: #ffffff;
+  --popover-foreground: #202122;
+  --primary: #3366cc;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f3f6;
+  --secondary-foreground: #202122;
+  --muted: #eef0f4;
+  --muted-foreground: #5b6168;
+  --accent: #eaf1ff;
+  --accent-foreground: #1d3f8f;
+  --destructive: #d33;
+  --border: #dde1e7;
+  --input: #c8ccd1;
+  --ring: #3366cc;
+  --rule: #c8ccd1;
+  --link: #3366cc;
+  --infobox: #f8f9fa;
+  --row-alt: #f8f9fa;
+  --status-todo: #6b7280;
+  --status-progress: #3366cc;
+  --status-done: #14866d;
+  --status-cancelled: #b32424;
+  --chart-1: #3366cc;
+  --chart-2: #14866d;
+  --chart-3: #b32424;
+  --chart-4: #ac6600;
+  --chart-5: #795cb2;
+  --radius: 0.5rem;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
+  --sidebar: #f8f9fa;
+  --sidebar-foreground: #202122;
+  --sidebar-primary: #3366cc;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eaf1ff;
+  --sidebar-accent-foreground: #1d3f8f;
+  --sidebar-border: #dde1e7;
+  --sidebar-ring: #3366cc;
+}
+
+/* Wikipedia night mode palette */
+.dark {
+  --background: #101418;
+  --foreground: #eaecf0;
+  --card: #151a20;
+  --card-foreground: #eaecf0;
+  --popover: #151a20;
+  --popover-foreground: #eaecf0;
+  --primary: #6a93e8;
+  --primary-foreground: #0b1220;
+  --secondary: #1d232b;
+  --secondary-foreground: #eaecf0;
+  --muted: #1d232b;
+  --muted-foreground: #a2a9b1;
+  --accent: #1c2a47;
+  --accent-foreground: #c3d3fa;
+  --destructive: #ff6b6b;
+  --border: #2c333c;
+  --input: #3a424d;
+  --ring: #6a93e8;
+  --rule: #3a424d;
+  --link: #88a3e8;
+  --infobox: #1a2027;
+  --row-alt: #131820;
+  --status-todo: #a2a9b1;
+  --status-progress: #88a3e8;
+  --status-done: #4cc9a8;
+  --status-cancelled: #ff7b7b;
+  --chart-1: #88a3e8;
+  --chart-2: #4cc9a8;
+  --chart-3: #ff7b7b;
+  --chart-4: #e0a040;
+  --chart-5: #b49cf0;
+  --shadow-card: none;
+  --sidebar: #101418;
+  --sidebar-foreground: #eaecf0;
+  --sidebar-primary: #6a93e8;
+  --sidebar-primary-foreground: #0b1220;
+  --sidebar-accent: #1c2a47;
+  --sidebar-accent-foreground: #c3d3fa;
+  --sidebar-border: #2c333c;
+  --sidebar-ring: #6a93e8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-size: 15px;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    line-height: 1.65;
+  }
+  /* Wikipedia-style headings: serif, h1/h2 underlined with a thin rule */
+  h1,
+  h2 {
+    @apply font-heading border-rule border-b pb-1 font-normal;
+    line-height: 1.25;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3,
+  h4 {
+    @apply font-sans font-semibold;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  a {
+    @apply text-link underline-offset-2 hover:underline;
+  }
+  table {
+    @apply w-full border-collapse text-sm;
+  }
+  th {
+    @apply bg-muted text-left font-semibold;
+  }
+  th,
+  td {
+    @apply border-b px-3 py-2;
+  }
+  tbody tr:nth-child(even) {
+    @apply bg-row-alt;
+  }
+}
+
+/* ---- frappe-gantt theming (its own dark vars key off html[data-theme=dark]; we use .dark) ---- */
+html:root,
+html.dark {
+  --g-bar-color: color-mix(in srgb, var(--status-todo) 22%, var(--card));
+  --g-bar-border: var(--rule);
+  --g-progress-color: var(--status-todo);
+  --g-header-background: var(--card);
+  --g-row-color: var(--card);
+  --g-border-color: var(--border);
+  --g-row-border-color: var(--rule);
+  --g-tick-color: var(--border);
+  --g-tick-color-thick: var(--rule);
+  --g-text-dark: var(--card-foreground);
+  --g-text-muted: var(--muted-foreground);
+  --g-actions-background: var(--muted);
+  --g-popup-actions: var(--muted);
+  --g-weekend-highlight-color: color-mix(
+    in srgb,
+    var(--muted) 60%,
+    transparent
+  );
+  --g-today-highlight: var(--status-cancelled);
+  --g-arrow-color: var(--muted-foreground);
+}
+.gantt .bar-wrapper.gantt-in_progress .bar {
+  fill: color-mix(in srgb, var(--status-progress) 22%, var(--card));
+}
+.gantt .bar-wrapper.gantt-in_progress .bar-progress {
+  fill: var(--status-progress);
+}
+.gantt .bar-wrapper.gantt-done .bar {
+  fill: color-mix(in srgb, var(--status-done) 22%, var(--card));
+}
+.gantt .bar-wrapper.gantt-done .bar-progress {
+  fill: var(--status-done);
+}
+.gantt .bar-wrapper.gantt-cancelled .bar {
+  fill: color-mix(in srgb, var(--status-cancelled) 18%, var(--card));
+}
+.gantt .bar-wrapper.gantt-cancelled .bar-label {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+.gantt .bar-label,
+.gantt-container {
+  font-family: inherit;
+}

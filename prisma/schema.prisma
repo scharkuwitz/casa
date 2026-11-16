@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ---- Better Auth tables (verified against `@better-auth/cli generate`) ----
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ---- App models ----
+enum TodoStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String   @default("#3366cc")
+  createdAt DateTime @default(now())
+  todos     Todo[]
+}
+
+model Todo {
+  id          String       @id @default(cuid())
+  title       String
+  description String       @default("")
+  status      TodoStatus   @default(TODO)
+  startDate   DateTime
+  endDate     DateTime
+  categoryId  String?
+  category    Category?    @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  attachments Attachment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([status])
+  @@index([startDate])
+  @@index([categoryId])
+}
+
+model Attachment {
+  id         String   @id @default(cuid())
+  todoId     String
+  todo       Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  fileName   String // original client name, display only
+  storedName String // <uuid><ext> on disk
+  mimeType   String
+  size       Int
+  createdAt  DateTime @default(now())
+
+  @@index([todoId])
+}
