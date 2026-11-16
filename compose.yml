@@ -1,0 +1,21 @@
+# Local production-like run: `docker compose up --build`, then http://localhost:3000.
+# Secrets come from the project `.env` (compose reads it for ${...} interpolation). Only the
+# variables below reach the container; DATABASE_URL and UPLOAD_DIR are fixed in the image (/data).
+services:
+  app:
+    build: .
+    image: casa:local
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET in .env}
+      BETTER_AUTH_URL: http://localhost:${APP_PORT:-3000}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?set ADMIN_EMAIL in .env}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-10}
+    volumes:
+      - casa-data:/data
+    restart: unless-stopped
+
+volumes:
+  casa-data:
